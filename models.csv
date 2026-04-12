@@ -1,0 +1,33 @@
+arch,source_dataset,huggingface_model_id,arch_match,dataset_match,num_classes,notes
+alexnet,imagenet,torchvision/imagenet,exact,exact,1000,torchvision AlexNet_Weights.IMAGENET1K_V1
+resnet18,imagenet,torchvision/imagenet,exact,exact,1000,torchvision ResNet18_Weights.IMAGENET1K_V1
+resnet50,imagenet,torchvision/imagenet,exact,exact,1000,torchvision ResNet50_Weights.IMAGENET1K_V2
+googlenet,imagenet,torchvision/imagenet,exact,exact,1000,torchvision GoogLeNet_Weights.IMAGENET1K_V1
+alexnet,cifar10,sakshambedi/AlexNet-CIFAR10,exact,exact,10,Apache 2.0; alts: umarzaib/AlexNet_CIFAR10 Jamal44/AlexNet-CIFAR10
+alexnet,caltech101,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+alexnet,oxford_pets,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+alexnet,cub200,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+alexnet,stanford_dogs,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+alexnet,nabird,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+alexnet,voc2007,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+resnet18,cifar10,edadaltocg/resnet18_cifar10,exact,exact,10,timm-compatible; MIT; 94.98% acc; 665 downloads
+resnet18,caltech101,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+resnet18,oxford_pets,marvelmmy/resnet18-oxford-pet-classifier,exact,exact,37,weak match — no model card; 0 downloads
+resnet18,cub200,MarcoParola/mu_resnet18_origin_cub,exact,close,200,weak match — no model card; 0 downloads
+resnet18,stanford_dogs,CaoPhu2305/vc09-resnet18-stanford-dogs,exact,exact,120,weak match — no model card; 5 downloads
+resnet18,nabird,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+resnet18,voc2007,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+resnet50,cifar10,edadaltocg/resnet50_cifar10,exact,exact,10,timm-compatible; MIT; 94.65% acc; 186 downloads
+resnet50,caltech101,anonauthors/caltech101-resnet50,exact,exact,101,timm/PyTorch; Apache 2.0; 95 downloads
+resnet50,oxford_pets,flaviodell/oxford-pets-resnet50,exact,exact,37,MIT; 90.08% test acc; well-documented
+resnet50,cub200,anonauthors/cub200-resnet50,exact,exact,200,timm/PyTorch; Apache 2.0; 33 downloads; alt: Branden28/ResNet50_CUB-200
+resnet50,stanford_dogs,anonauthors/stanford_dogs-resnet50,exact,exact,120,timm/PyTorch; Apache 2.0; 3 downloads
+resnet50,nabird,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+resnet50,voc2007,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+googlenet,cifar10,cdreetz/GoogleNet-CIFAR,exact,exact,10,no README; tagged dataset:cifar10
+googlenet,caltech101,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+googlenet,oxford_pets,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+googlenet,cub200,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+googlenet,stanford_dogs,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+googlenet,nabird,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
+googlenet,voc2007,torchvision/imagenet,exact,fallback,1000,No HuggingFace match — using imagenet pretrained weights
