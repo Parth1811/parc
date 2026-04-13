@@ -22,10 +22,10 @@ def split_data(data:np.ndarray, percent_train:float):
 	return data[:split], data[split:]
 
 class TransferabilityMethod:	
-	def __call__(self, 
+	def __call__(self,
 		features:np.ndarray, probs:np.ndarray, y:np.ndarray,
 		source_dataset:str, target_dataset:str, architecture:str,
-		cache_path_fn) -> float:
+		cache_path_fn, **kwargs) -> float:
 		
 		self.features = features
 		self.probs = probs
