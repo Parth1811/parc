@@ -146,6 +146,31 @@ class RankingTransformerMethod(TransferabilityMethod):
     # TransferabilityMethod interface
     # ------------------------------------------------------------------
 
+    def __call__(
+        self,
+        features,
+        probs,
+        y,
+        source_dataset,
+        target_dataset,
+        architecture,
+        cache_path_fn,
+        **kwargs,  # absorb augmented keys (probe_indices, clip_image_embedding, etc.)
+    ) -> float:
+        self.features = features
+        self.probs = probs
+        self.y = y
+        self.source_dataset = source_dataset
+        self.target_dataset = target_dataset
+        self.architecture = architecture
+        self.cache_path_fn = cache_path_fn
+
+        # Extract run number from the pkl path: ../{arch}_{source}_{target}_{run}.pkl
+        pkl_path = cache_path_fn(architecture, source_dataset, target_dataset)
+        self.run = int(Path(pkl_path).stem.rsplit("_", 1)[-1])
+
+        return self.forward()
+
     def forward(self) -> float:
         """Return transformer score for the current (arch, source, target, run)."""
         key = (self.target_dataset, self.run, self.architecture, self.source_dataset)
