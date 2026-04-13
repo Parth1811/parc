@@ -133,7 +133,9 @@ class RankingTransformerMethod(TransferabilityMethod):
             # RankingCrossAttentionTransformer.forward(dataset_tokens, model_tokens)
             logits = self._get_model()(dataset_tokens, model_tokens)  # (1, N)
 
-        scores = logits[0].cpu().numpy()
+        # Negate logits: the old nn.Transformer with causal decoder masking
+        # produces scores where lower = better, but PARC expects higher = better
+        scores = -logits[0].cpu().numpy()
         for i, key in enumerate(keys):
             self._score_cache[key] = float(scores[i])
 
