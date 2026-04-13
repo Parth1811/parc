@@ -171,8 +171,8 @@ def evaluate_all_methods_kendall(
 
             # Pearson correlation (PARC's default metric)
             from scipy import stats
-            valid = true_scores > 0
-            if valid.sum() >= 2:
+            valid = (true_scores > 0) & np.isfinite(pred_scores) & np.isfinite(true_scores)
+            if valid.sum() >= 2 and np.std(pred_scores[valid]) > 1e-10:
                 r, _ = stats.pearsonr(pred_scores[valid], true_scores[valid])
                 pearson_vals.append(r * 100)
 
