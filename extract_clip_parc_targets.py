@@ -32,18 +32,24 @@ import torch
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PARC_DIR = PROJECT_ROOT / "parc"
 
-# Must insert project root BEFORE chdir so ClipImageEncoder and config are importable
+# IMPORTANT: import project modules BEFORE adding parc/ to sys.path.
+# parc/datasets.py would otherwise mask the HuggingFace `datasets` package.
 sys.path.insert(0, str(PROJECT_ROOT))
-sys.path.insert(0, str(PARC_DIR))
 
 from config import ConfigParser, ClipEvaluationConfig, DatasetLoaderDefaultsConfig
 from model import ClipImageEncoder
 from dataloader.imagenet_dataset import ClassBalancedBatchSampler
 
-# PARC modules (need cwd = parc/ at import time for their data paths)
+# Now add parc/ to path and import PARC's datasets (with cwd=parc/ for relative paths)
+sys.path.insert(0, str(PARC_DIR))
 _orig_cwd = os.getcwd()
 os.chdir(PARC_DIR)
-from datasets import construct_dataset, get_dataset_path  # parc/datasets.py
+# Use importlib to avoid caching the wrong `datasets` module
+import importlib
+_parc_datasets = importlib.import_module("datasets")
+construct_dataset = _parc_datasets.construct_dataset
+get_dataset_path = _parc_datasets.get_dataset_path
+_parc_dataset_objs = _parc_datasets.dataset_objs
 os.chdir(_orig_cwd)
 
 
@@ -197,9 +203,7 @@ def process_dataset(
     _cwd = os.getcwd()
     os.chdir(PARC_DIR)  # PARC datasets use relative './data/' paths
     try:
-        # Import PARC's dataset_objs registry directly so we can pass our own transform
-        from datasets import dataset_objs
-        dataset_cls = dataset_objs[parc_name]
+        dataset_cls = _parc_dataset_objs[parc_name]
         torch_dataset = dataset_cls(
             get_dataset_path(parc_name), is_train, transform=transform
         )
