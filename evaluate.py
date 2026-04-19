@@ -74,8 +74,13 @@ class Experiment:
 
 		self.times = defaultdict(list)
 		
+	_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 	def cache_path(self, architecture:str, source_dataset:str, target_dataset:str, run:int):
-		return f'./cache/probes/{self.params.experiment_name}/{architecture}_{source_dataset}_{target_dataset}_{run}.pkl'
+		return os.path.join(
+			self._BASE_DIR, 'cache', 'probes', self.params.experiment_name,
+			f'{architecture}_{source_dataset}_{target_dataset}_{run}.pkl',
+		)
 
 	@property
 	def cur_cache_path(self):
@@ -83,11 +88,11 @@ class Experiment:
 
 	@property
 	def out_file(self):
-		return f'./results/{self.name}.csv'
+		return os.path.join(self._BASE_DIR, 'results', f'{self.name}.csv')
 
 	@property
 	def timing_file(self):
-		return f'./results/{self.name}_timing.pkl'
+		return os.path.join(self._BASE_DIR, 'results', f'{self.name}_timing.pkl')
 
 	def prep_model(self):
 		model = utils.load_source_model(self.architecture, self.source_dataset)

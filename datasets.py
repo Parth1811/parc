@@ -545,7 +545,8 @@ def construct_dataset(dataset:str, path:str, train:bool=False, **kwdargs) -> tor
 	return dataset_objs[dataset](path, train, transform=transform, **kwdargs)
 
 def get_dataset_path(dataset:str) -> str:
-	return f'./data/{dataset}/'
+	# Resolve to an absolute path rooted at parc/data/ so callers work regardless of cwd.
+	return os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', dataset) + '/'
 
 
 class ClassMapCache:
@@ -597,7 +598,8 @@ class ClassMapCache:
 
 	@property
 	def cache_path(self):
-		return f'./cache/class_map/{self.dataset}_{"train" if self.train else "test"}.pkl'
+		base = os.path.dirname(os.path.abspath(__file__))
+		return os.path.join(base, 'cache', 'class_map', f'{self.dataset}_{"train" if self.train else "test"}.pkl')
 
 
 class DatasetCache(torch.utils.data.Dataset):
@@ -619,10 +621,12 @@ class DatasetCache(torch.utils.data.Dataset):
 		super().__init__()
 
 	def cache_path(self, idx:int) -> str:
-		return f'./cache/datasets/{self.dataset}/{"train" if self.train else "test"}_{idx}.npy'
-		
+		base = os.path.dirname(os.path.abspath(__file__))
+		return os.path.join(base, 'cache', 'datasets', self.dataset, f'{"train" if self.train else "test"}_{idx}.npy')
+
 	def glob_path(self) -> str:
-		return f'./cache/datasets/{self.dataset}/{"train" if self.train else "test"}_*'
+		base = os.path.dirname(os.path.abspath(__file__))
+		return os.path.join(base, 'cache', 'datasets', self.dataset, f'{"train" if self.train else "test"}_*')
 
 	def construct_cache(self):
 		print(f'Constructing dataset cache for {self.dataset}...')
